@@ -74,6 +74,16 @@ Kurulum tamamlandığında uygulama:
 - `storage/config.php` dosyasını yazar
 - `storage/installed.lock` dosyasını oluşturur
 
+### Temiz Kaynak Dağıtımı
+
+Bu depo, kurulum yapılmamış temiz kaynak olarak tutulur. Bu yüzden aşağıdaki dosyalar repoda bilerek yoktur:
+
+- `storage/config.php`
+- `storage/installed.lock`
+
+Bu dosyalar kurulum tamamlandığında otomatik olarak oluşturulur.
+`storage/config.example.php` yalnızca örnek amaçlıdır.
+
 ### 3. Giriş ve Kullanım
 
 - Site: `http://localhost:8080/index.php`
@@ -92,7 +102,7 @@ Not: Normal kullanımda `install.php` şemayı otomatik hazırlar. Manuel kurulu
 - `app/Core/`: Kimlik doğrulama, veritabanı, bildirim mantığı
 - `app/Views/`: Yönetim paneli görünümleri
 - `public/assets/`: CSS ve JS dosyaları
-- `storage/`: Kurulum kilidi ve çalışma zamanı yapılandırmaları
+- `storage/`: Çalışma zamanı dosyaları (`config.php`, `installed.lock`) ve örnek yapılandırma
 - `database/`: SQL şema ve yedek dosyaları
 
 ## Sık Karşılaşılan Sorunlar
