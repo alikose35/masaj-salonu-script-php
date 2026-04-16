@@ -1,47 +1,107 @@
-﻿# Masaj Salonu Randevu Scripti
+﻿# Masaj Salonu Randevu Scripti (PHP)
 
-Docker destekli, PHP tabanli, AJAX rezervasyon akisina sahip profesyonel bir masaj salonu scriptidir. Uyeliksiz randevu alma, admin panelinden durum yonetimi, SEO ayarlari ve kurulum sihirbazi tek pakette sunulur.
+Masaj ve spa salonları için geliştirilmiş, üyelik gerektirmeden online randevu almayı sağlayan bir web uygulamasıdır. Kurulum sihirbazı sayesinde veritabanı bağlantısı, site ayarları ve yönetici hesabı tek akışta tamamlanır.
 
-## Kullanilan teknolojiler
+## Proje Özeti
 
-- PHP 8.2
-- MySQL 8
-- Apache
+Bu proje iki ana bölümden oluşur:
+
+- Ziyaretçi tarafı: Hizmet ve terapist seçerek tarih/saat bazlı randevu oluşturma
+- Yönetim paneli: Randevuları onaylama, tamamlama, iptal etme ve temel ayarları yönetme
+
+## Öne Çıkan Özellikler
+
+- Üyeliksiz randevu oluşturma akışı
+- AJAX tabanlı hızlı form işlemleri
+- Yönetici girişi ve panel yönetimi
+- Kurulum sihirbazı (uyumluluk kontrolleri + başlangıç ayarları)
+- Otomatik şema oluşturma ve örnek veri hazırlama
+- SEO ve temel site kimliği alanları
+
+## Teknoloji Yığını
+
+- PHP 8.1+
+- MySQL 8+
+- Apache (veya PHP built-in server ile geliştirme)
 - HTML, CSS, JavaScript
-- AJAX tabanli rezervasyon ve panel aksiyonlari
 
-## Ozellikler
+## Gereksinimler
 
-- Uyeliksiz online randevu olusturma
-- Admin giris paneli
-- Randevu yoneticisi paneli
-- Hizmet ve terapist listeleme
-- SEO ve site bilgilerini kurulum ekranindan alma
-- Zorunlu ve onerilen uyumluluk kontrolleri
-- Docker ile hizli lokal kurulum
+### Zorunlu Gereksinimler
 
-## Kurulum klavuzu mantigi
+- PHP `8.1` veya üzeri
+- PHP eklentileri:
+  - `pdo_mysql`
+  - `json`
+  - `openssl`
+- Yazılabilir `storage/` klasörü
+- Çalışan bir MySQL sunucusu
 
-Kurulum sayfasi iki farkli kontrol grubuyla ilerler:
+### Önerilen Gereksinimler
 
-- Zorunlu: Bu gruptaki maddelerden biri eksikse kurulum butonu pasif kalir ve islem tamamlanamaz.
-- Onerilenler: Bu gruptaki eksikler kurulumu durdurmaz, ancak ilgili deneyim veya gelismis ozellikler kisitlanabilir.
+- `mbstring`
+- `fileinfo`
+- `upload_max_filesize >= 5M`
 
-Kontrol edilen baslica uyumluluklar:
+## Kurulum Rehberi
 
-- PHP surumu
-- `pdo_mysql`, `json`, `openssl` eklentileri
-- `storage` klasoru yazma izni
-- `mbstring`, `fileinfo`, `upload_max_filesize` gibi tavsiye edilen ortam nitelikleri
+### 1. Projeyi Çalıştırın
 
-## Admin paneli
+Proje kök dizininde bir web sunucusu ile çalıştırın.
 
-- `http://localhost:8080/admin.php`
-- Kurulumda girdiginiz e-posta ve sifre ile giris yapabilirsiniz.
-- Bekleyen randevulari onaylama, tamamlama veya iptal etme islemleri AJAX ile yapilir.
+Örnek (geliştirme için):
 
-## Notlar
+```bash
+php -S localhost:8080
+```
 
-- Kurulumdan sonra ayarlar `storage/config.php` icine yazilir.
-- Kurulum kilidi `storage/installed.lock` dosyasi ile tutulur.
-- Script ilk acilista dogrudan installer'a yonlenir.
+Ardından tarayıcıdan:
+
+- `http://localhost:8080/install.php`
+
+### 2. Kurulum Sihirbazını Tamamlayın
+
+Kurulum ekranında sırasıyla:
+
+- Veritabanı bağlantı bilgilerini girin
+- Site/SEO alanlarını doldurun
+- Yönetici hesabı oluşturun
+
+Kurulum tamamlandığında uygulama:
+
+- Veritabanı şemasını oluşturur
+- Başlangıç verilerini (hizmet/terapist) ekler
+- `storage/config.php` dosyasını yazar
+- `storage/installed.lock` dosyasını oluşturur
+
+### 3. Giriş ve Kullanım
+
+- Site: `http://localhost:8080/index.php`
+- Admin paneli: `http://localhost:8080/admin.php`
+
+## Veritabanı Dosyaları
+
+- [database/schema.sql](database/schema.sql): Şema tanımları
+- [database/live-20260416-230041.sql](database/live-20260416-230041.sql): Örnek/dump veri
+
+Not: Normal kullanımda `install.php` şemayı otomatik hazırlar. Manuel kurulum yapmak isterseniz bu SQL dosyalarını referans alabilirsiniz.
+
+## Proje Yapısı
+
+- `app/`: Çekirdek sınıflar ve yardımcı fonksiyonlar
+- `app/Core/`: Kimlik doğrulama, veritabanı, bildirim mantığı
+- `app/Views/`: Yönetim paneli görünümleri
+- `public/assets/`: CSS ve JS dosyaları
+- `storage/`: Kurulum kilidi ve çalışma zamanı yapılandırmaları
+- `database/`: SQL şema ve yedek dosyaları
+
+## Sık Karşılaşılan Sorunlar
+
+- Kurulum butonu pasifse: Zorunlu uyumluluk kontrollerinden en az biri başarısızdır.
+- Veritabanına bağlanamıyorsa: Host/port/kullanıcı/parola bilgilerini kontrol edin.
+- Uygulama sürekli kurulum ekranına dönüyorsa: `storage/config.php` ve `storage/installed.lock` dosyalarının yazıldığını doğrulayın.
+
+## Güvenlik Notu
+
+- `storage/config.php` veritabanı bilgilerini içerir.
+- Üretim ortamında bu dosyanın erişim izinlerini sınırlandırın ve mümkünse gizli yönetimi (secret management) kullanın.
