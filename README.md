@@ -1,4 +1,4 @@
-# Masaj Salonu Randevu Scripti
+﻿# Masaj Salonu Randevu Scripti
 
 Docker destekli, PHP tabanli, AJAX rezervasyon akisina sahip profesyonel bir masaj salonu scriptidir. Uyeliksiz randevu alma, admin panelinden durum yonetimi, SEO ayarlari ve kurulum sihirbazi tek pakette sunulur.
 
@@ -19,8 +19,6 @@ Docker destekli, PHP tabanli, AJAX rezervasyon akisina sahip profesyonel bir mas
 - SEO ve site bilgilerini kurulum ekranindan alma
 - Zorunlu ve onerilen uyumluluk kontrolleri
 - Docker ile hizli lokal kurulum
-
-
 
 ## Kurulum klavuzu mantigi
 
